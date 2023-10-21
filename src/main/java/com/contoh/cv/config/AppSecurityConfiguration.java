@@ -31,6 +31,7 @@ public class AppSecurityConfiguration {
                     auth
                             .antMatchers(HttpMethod.POST, "/api/register").permitAll()
                             .antMatchers(HttpMethod.POST, "/api/login").permitAll()
+                            .antMatchers(HttpMethod.GET, "/api/confirm/**").permitAll()
                             .anyRequest().authenticated())
             .userDetailsService(appUserDetailService)
             .httpBasic()

@@ -22,6 +22,8 @@ public class User {
   private String password;
   @Column(name = "is_active")
   private boolean isActive = false;
+  @Column(name = "confirm_token")
+  private String confirmationToken;
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(

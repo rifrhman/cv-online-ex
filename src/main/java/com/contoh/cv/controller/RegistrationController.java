@@ -6,10 +6,7 @@ import com.contoh.cv.service.implementation.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -17,6 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegistrationController {
 
   private RegistrationService registrationService;
+
+  @GetMapping("/confirm")
+  public ResponseEntity<String> confirmEmail(@RequestParam("token") String token){
+    boolean confirm = registrationService.confirmEmail(token);
+
+    if (confirm) {
+      return new ResponseEntity<>("Email telah berhasil dikonfirmasi. Akun Anda sekarang aktif.", HttpStatus.OK);
+    } else {
+      return new ResponseEntity<>("Gagal mengkonfirmasi email.", HttpStatus.BAD_REQUEST);
+    }
+
+  }
 
   @PostMapping("/register")
   public ResponseEntity<RegistrationResponse> registration(@RequestBody RegistrationRequest registrationRequest){
